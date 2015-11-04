@@ -5,7 +5,10 @@ OUTPUTS=$(patsubst $(LIST_DIR)/%.md, $(PDF_DIR)/%.pdf, $(LISTS))
 
 print-%: ; @echo $*=$($*)
 
-$(PDF_DIR)/%.pdf: $(LIST_DIR)/%.md
+$(PDF_DIR):
+	mkdir -p $@
+
+$(PDF_DIR)/%.pdf: $(LIST_DIR)/%.md $(PDF_DIR) 
 	pandoc $< -o $@
 
 clean:
